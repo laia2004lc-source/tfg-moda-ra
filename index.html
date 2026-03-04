@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARESME DIGITAL | Boutique de Moda RA</title>
+    
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    
+    <style>
+        /* Estilo general */
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #ffffff; color: #1a1a1a; line-height: 1.6; }
+        
+        /* Navegación */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid #f0f0f0; }
+        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; }
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: #1a1a1a; font-size: 0.9rem; font-weight: 500; }
+
+        /* Banner Principal */
+        .hero { padding: 80px 5%; text-align: center; background-color: #fafafa; }
+        .hero h2 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 700; }
+        .hero p { color: #666; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        /* Contenedor del Producto */
+        .product-section { display: flex; flex-wrap: wrap; padding: 60px 5%; gap: 60px; align-items: flex-start; }
+        
+        /* Área del Probador Virtual */
+        .ar-viewer-container { flex: 1; min-width: 350px; background: #f5f5f5; border-radius: 20px; position: relative; overflow: hidden; }
+        model-viewer { width: 100%; height: 600px; --poster-color: transparent; }
+
+        /* Información del Producto */
+        .product-details { flex: 1; min-width: 300px; }
+        .badge { display: inline-block; padding: 5px 12px; background: #e0f2f1; color: #00796b; font-size: 0.75rem; border-radius: 50px; margin-bottom: 15px; font-weight: bold; }
+        .product-details h1 { font-size: 2.2rem; margin: 0 0 10px 0; }
+        .price { font-size: 1.5rem; font-weight: 600; margin-bottom: 30px; color: #333; }
+        .description { font-size: 1rem; color: #555; margin-bottom: 40px; }
+
+        /* Botones */
+        .btn-buy { width: 100%; padding: 18px; background: #1a1a1a; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-buy:hover { background: #333; }
+        
+        /* Botón RA que aparece dentro del visor */
+        .ar-button { background-color: white; border-radius: 50px; border: 1px solid #ddd; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); padding: 12px 24px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+        /* Footer */
+        footer { padding: 40px; text-align: center; border-top: 1px solid #eee; margin-top: 60px; color: #999; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">NOMBRE MARCA</div>
+        <ul class="nav-links">
+            <li><a href="#">Colección</a></li>
+            <li><a href="#">Maresme Local</a></li>
+            <li><a href="#">Sobre nosotros</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h2>Diseño Ético & Realidad Aumentada</h2>
+        <p>Desde Premià de Dalt, redefinimos la experiencia de compra online para eliminar las dudas sobre tu talla.</p>
+    </section>
+
+    <main class="product-section">
+        <div class="ar-viewer-container">
+            <model-viewer 
+                src="modelo_camiseta.glb" 
+                ar 
+                ar-modes="webxr scene-viewer quick-look" 
+                camera-controls 
+                auto-rotate 
+                shadow-intensity="1"
+                alt="Probador virtual de camiseta">
+                
+                <button slot="ar-button" class="ar-button">
+                    <span>🤳</span> PROBAR EN MI CUERPO
+                </button>
+            </model-viewer>
+        </div>
+
+        <div class="product-details">
+            <span class="badge">NUEVA COLECCIÓN</span>
+            <h1>Camiseta Algodón "Brisa del Maresme"</h1>
+            <p class="price">35,00 €</p>
+            
+            <p class="description">
+                Fabricada con algodón orgánico de proximidad. Nuestro diseño minimalista se une a la tecnología WebAR para que puedas visualizar la prenda antes de comprarla. 
+                <br><br>
+                <strong>Impacto social:</strong> Producción local en el Maresme para reducir la huella de carbono.
+            </p>
+
+            <button class="btn-buy">AÑADIR AL CARRITO</button>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 NOMBRE MARCA - TFG Empresa y Tecnología - Premià de Dalt.
+    </footer>
+
+</body>
+</html>
