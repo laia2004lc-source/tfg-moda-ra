@@ -6,50 +6,32 @@
     <title>MARESME DIGITAL | Boutique RA</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #fff; color: #1a1a1a; overflow-x: hidden; }
-        
-        /* 1. LA TIENDA PRINCIPAL */
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #fff; color: #1a1a1a; }
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid #f0f0f0; }
         .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; }
-        
         .product-page { display: flex; flex-wrap: wrap; padding: 40px 5%; gap: 40px; }
-        
-        /* Contenedor de Imagen/3D */
         .visual-container { flex: 1; min-width: 350px; position: relative; border-radius: 15px; overflow: hidden; background: #f9f9f9; height: 600px; }
         .main-img { width: 100%; height: 100%; object-fit: cover; }
-        #ar-viewer { width: 100%; height: 100%; display: none; } /* Empieza escondido */
-
-        /* Detalles */
+        #ar-viewer { width: 100%; height: 100%; display: none; }
         .info-container { flex: 1; min-width: 300px; }
         .tag { background: #d4af37; color: white; padding: 5px 10px; font-size: 0.7rem; border-radius: 4px; text-transform: uppercase; }
         h1 { font-size: 2.5rem; margin: 15px 0; }
         .price { font-size: 1.5rem; font-weight: bold; margin-bottom: 30px; }
-        
-        .btn { width: 100%; padding: 18px; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 600; margin-bottom: 15px; transition: 0.3s; }
+        .btn { width: 100%; padding: 18px; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 600; margin-bottom: 15px; }
         .btn-black { background: #1a1a1a; color: #fff; }
         .btn-outline { background: #fff; border: 2px solid #1a1a1a; color: #1a1a1a; }
-        .btn-outline:hover { background: #f5f5f5; }
 
-        /* Panel de Tallas (Probador) */
+        /* ESTILO DE TUS NUEVAS SILUETAS */
         .probador-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); z-index: 100; padding: 40px 20px; box-sizing: border-box; overflow-y: auto; text-align: center; }
         .probador-overlay.active { display: block; }
         .close-btn { position: absolute; top: 20px; right: 20px; font-size: 2rem; cursor: pointer; }
+        .body-type-container { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+        .body-option { flex: 1; max-width: 150px; border: 1px solid #ddd; border-radius: 12px; padding: 15px; cursor: pointer; background: #fff; transition: 0.3s; }
+        .body-option:hover, .body-option.selected { border-color: #000; background: #f9f9f9; transform: translateY(-5px); }
+        .body-option img { width: 100%; height: auto; margin-bottom: 10px; }
+        .body-label { font-size: 0.8rem; font-weight: bold; display: block; }
         
-        .step { margin-bottom: 30px; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 20px; }
-        .step h3 { margin-bottom: 10px; font-size: 1.1rem; }
-        
-        /* Siluetas Femeninas Minimalistas */
-        .body-type-container { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
-        .body-option { flex: 1; text-align: center; border: 1px solid #ddd; border-radius: 12px; padding: 15px 5px; cursor: pointer; transition: all 0.3s ease; background: #fff; max-width: 120px; }
-        .body-option:hover { border-color: #000; transform: translateY(-3px); }
-        .body-option img { width: 100%; max-width: 60px; height: auto; margin-bottom: 10px; opacity: 0.7; }
-        .body-option.selected { border-color: #1a1a1a; background: #f0f0f0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .body-option.selected img { opacity: 1; }
-        .body-label { font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 2px; text-transform: uppercase; }
-        .body-desc { font-size: 0.6rem; color: #888; line-height: 1; display: block; }
-
-        /* Pantalla de Carga Simulada */
-        #loading-screen { display: none; text-align: center; margin-top: 50px; }
+        #loading-screen { display: none; margin-top: 30px; }
         .spinner { border: 4px solid rgba(0,0,0,0.1); width: 36px; height: 36px; border-radius: 50%; border-left-color: #1a1a1a; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
@@ -64,103 +46,70 @@
 <div class="product-page">
     <div class="visual-container">
         <img src="modelo_polo.jpg" id="main-photo" class="main-img" alt="Modelo Real">
-        <model-viewer id="ar-viewer" src="" ar camera-controls shadow-intensity="1"></model-viewer>
+        <model-viewer id="ar-viewer" src="polo_3d.glb" ar camera-controls shadow-intensity="1"></model-viewer>
     </div>
 
     <div class="info-container">
         <span class="tag">Línea Elegante</span>
         <h1>Polo "Brisa Premium"</h1>
         <p class="price">45,00 €</p>
-        <p>Fabricado con algodón de alta calidad en el Maresme. Corte entallado y diseño atemporal para un estilo sofisticado.</p>
-        
+        <p>Corte femenino y tejido transpirable. Prueba nuestro probador inteligente para ver cómo se adapta a tu fisonomía.</p>
         <button class="btn btn-black">AÑADIR A LA CESTA</button>
-        <button class="btn btn-outline" onclick="abrirProbador()">🤳 PERSONALIZAR MI PROBADOR (AVATAR)</button>
+        <button class="btn btn-outline" onclick="abrirProbador()">🤳 PROBAR CON MI AVATAR</button>
     </div>
 </div>
 
 <div id="probador" class="probador-overlay">
     <span class="close-btn" onclick="cerrarProbador()">&times;</span>
-    <h2 style="text-align:center;">Probador Virtual Inteligente</h2>
+    <h2>Probador Virtual: Define tu Silueta</h2>
     
-    <div class="step">
-        <h3>1. Tus medidas:</h3>
-        <input type="number" id="height" placeholder="Altura (cm)" style="padding:12px; border-radius: 8px; border: 1px solid #ddd; margin:5px;">
-        <input type="number" id="weight" placeholder="Peso (kg)" style="padding:12px; border-radius: 8px; border: 1px solid #ddd; margin:5px;">
-    </div>
-
-    <div class="step">
-        <h3>2. Tu tipo de silueta femenina:</h3>
-        <div class="body-type-container">
-            <div class="body-option" onclick="selectBody(this, 'ectomorfa')">
-                <img src="https://cdn-icons-png.flaticon.com/512/6064/6064951.png" alt="Ectomorfa">
-                <span class="body-label">Ectomorfa</span>
-                <span class="body-desc">Esbelta / Recta</span>
-            </div>
-            <div class="body-option" onclick="selectBody(this, 'mesomorfa')">
-                <img src="https://cdn-icons-png.flaticon.com/512/6064/6064942.png" alt="Mesomorfa">
-                <span class="body-label">Mesomorfa</span>
-                <span class="body-desc">Reloj de arena</span>
-            </div>
-            <div class="body-option" onclick="selectBody(this, 'endomorfa')">
-                <img src="https://cdn-icons-png.flaticon.com/512/6065/6065003.png" alt="Endomorfa">
-                <span class="body-label">Endomorfa</span>
-                <span class="body-desc">Curvas / Robusta</span>
-            </div>
+    <div class="body-type-container">
+        <div class="body-option" onclick="selectBody(this)">
+            <img src="https://i.ibb.co/VvYfF39/ectomorph.png" alt="Ectomorfa">
+            <span class="body-label">ECTOMORFA</span>
+            <small>Esbelta / Recta</small>
+        </div>
+        <div class="body-option" onclick="selectBody(this)">
+            <img src="https://i.ibb.co/LkvmY3Y/mesomorph.png" alt="Mesomorfa">
+            <span class="body-label">MESOMORFA</span>
+            <small>Reloj de arena</small>
+        </div>
+        <div class="body-option" onclick="selectBody(this)">
+            <img src="https://i.ibb.co/X7WqS7B/endomorph.png" alt="Endomorfa">
+            <span class="body-label">ENDOMORFA</span>
+            <small>Curvas / Robusta</small>
         </div>
     </div>
 
-    <div class="step">
-        <h3>3. Tu Selfie (Opcional):</h3>
-        <input type="file" accept="image/*" style="width:100%; max-width: 300px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
-        <p style="font-size:0.7rem; color:#888; margin-top:5px;">Esta foto se proyectará sobre el avatar 3D para personalizar tu fisonomía.</p>
+    <div style="margin-top:40px;">
+        <h3>Sube tu selfie para la cara:</h3>
+        <input type="file" accept="image/*">
     </div>
 
-    <button id="generate-btn" class="btn btn-black" onclick="generarAvatar()">GENERAR MI AVATAR Y VER EN AR</button>
-    
+    <button id="gen-btn" class="btn btn-black" style="margin-top:30px; width:auto; padding: 15px 40px;" onclick="generar()">GENERAR MI AVATAR</button>
+
     <div id="loading-screen">
         <div class="spinner"></div>
-        <p style="font-weight: bold; color: #00796b;">Procesando tu avatar personalizado...</p>
-        <p style="font-size:0.8rem; color:#888;">Por favor, espera entre 30 y 60 segundos mientras mapeamos tus facciones faciales. ¡Pronto verás cómo te queda la prenda!</p>
+        <p><b>Procesando tu fisonomía...</b></p>
+        <p style="font-size:0.8rem; color:#666;">Tiempo estimado: 45 segundos. Estamos mapeando tu selfie sobre la silueta seleccionada.</p>
     </div>
 </div>
 
 <script>
     function abrirProbador() { document.getElementById('probador').classList.add('active'); }
     function cerrarProbador() { document.getElementById('probador').classList.remove('active'); }
-    
-    function selectBody(element, type) {
-        document.querySelectorAll('.body-option').forEach(opt => opt.classList.remove('selected'));
-        element.classList.add('selected');
-        console.log("Cuerpo: " + type);
+    function selectBody(el) {
+        document.querySelectorAll('.body-option').forEach(b => b.classList.remove('selected'));
+        el.classList.add('selected');
     }
-
-    function generarAvatar() {
-        // Validación básica: al menos deben haber seleccionado un tipo de cuerpo
-        const hasSelectedBody = document.querySelector('.body-option.selected');
-        if (!hasSelectedBody) {
-            alert("Por favor, selecciona tu tipo de silueta femenina.");
-            return;
-        }
-
-        // Escondemos el botón de generar y mostramos la pantalla de carga
-        document.getElementById('generate-btn').style.display = 'none';
+    function generar() {
+        document.getElementById('gen-btn').style.display = 'none';
         document.getElementById('loading-screen').style.display = 'block';
-
-        // Lógica de espera simulada: 10 segundos
         setTimeout(() => {
-            // Cerramos el panel del probador
             cerrarProbador();
-            // Restauramos el botón y escondemos la carga por si acaso
-            document.getElementById('generate-btn').style.display = 'block';
-            document.getElementById('loading-screen').style.display = 'none';
-
-            // Cambiamos la foto por el visor 3D
             document.getElementById('main-photo').style.display = 'none';
             document.getElementById('ar-viewer').style.display = 'block';
-
-            // Como no tenemos el polo 3D real, el visor se quedará en blanco pero funcional
-            console.log("Avatar generado. Ahora se activará el visor de RA.");
-        }, 10000); // 10,000 milisegundos = 10 segundos de espera simulada
+        }, 8000); // Simulamos 8 segundos para que veas el proceso
     }
 </script>
 
