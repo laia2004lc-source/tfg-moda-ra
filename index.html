@@ -2,30 +2,32 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MARESME DIGITAL | Probador IA Realista</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARESME DIGITAL | Probador Realista</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; background-color: #fff; color: #1a1a1a; }
-        nav { display: flex; justify-content: space-between; padding: 20px 5%; border-bottom: 1px solid #f0f0f0; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: #fff; color: #1a1a1a; }
+        nav { padding: 20px 5%; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
         .product-page { display: flex; flex-wrap: wrap; padding: 40px 5%; gap: 40px; }
-        .visual-container { flex: 1; min-width: 350px; height: 600px; background: #f9f9f9; border-radius: 15px; overflow: hidden; position: relative; }
+        .visual-container { flex: 1; min-width: 350px; height: 600px; background: #f9f9f9; border-radius: 15px; overflow: hidden; }
         .main-img { width: 100%; height: 100%; object-fit: cover; }
         model-viewer { width: 100%; height: 100%; display: none; }
 
-        /* Probador */
-        .probador-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; padding: 30px; overflow-y: auto; text-align: center; }
+        /* Estilos del Probador */
+        .probador-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; padding: 20px; overflow-y: auto; text-align: center; }
         .probador-overlay.active { display: block; }
         
-        .body-type-container { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
-        .body-option { flex: 1; max-width: 120px; border: 1px solid #eee; border-radius: 10px; padding: 10px; cursor: pointer; transition: 0.3s; }
-        .body-option.selected { border: 2px solid #000; background: #f9f9f9; }
-        .body-option img { width: 100%; border-radius: 5px; }
+        .step { margin-bottom: 30px; border-bottom: 1px solid #f0f0f0; padding-bottom: 20px; }
+        .body-type-container { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .body-option { flex: 1; border: 1px solid #ddd; border-radius: 12px; padding: 10px; cursor: pointer; max-width: 110px; }
+        .body-option.selected { border: 2px solid #000; background: #f0f0f0; }
+        .body-option img { width: 100%; height: auto; border-radius: 5px; }
 
-        .btn { width: 100%; max-width: 400px; padding: 18px; border-radius: 8px; cursor: pointer; font-weight: 600; border: none; }
+        .btn { width: 100%; padding: 18px; border-radius: 8px; cursor: pointer; font-weight: 600; border: none; margin-bottom: 10px; }
         .btn-black { background: #1a1a1a; color: #fff; }
-
-        #loading-screen { display: none; margin-top: 50px; }
-        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #000; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+        
+        #loading-screen { display: none; margin-top: 40px; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1a1a1a; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -44,52 +46,49 @@
     </div>
 
     <div class="info-container">
-        <span style="background:#d4af37; color:white; padding:4px 8px; font-size:0.7rem; border-radius:3px;">NUEVA COLECCIÓN</span>
-        <h1 style="font-size: 2.5rem; margin:10px 0;">Polo "Brisa"</h1>
+        <h1>Polo Executive</h1>
         <p style="font-size: 1.5rem; font-weight: bold; margin-bottom: 30px;">45,00 €</p>
         <button class="btn btn-black" onclick="abrirProbador()">🤳 PROBAR CON MI AVATAR IA</button>
     </div>
 </div>
 
 <div id="probador" class="probador-overlay">
-    <span onclick="cerrarProbador()" style="position:absolute; right:30px; top:20px; font-size:2rem; cursor:pointer;">&times;</span>
     <h2 style="margin-top:40px;">Tu Probador Personalizado</h2>
     
-    <div style="margin-bottom:25px;">
+    <div class="step">
         <h3>1. Medidas Corporales:</h3>
-        <input type="number" id="alt" placeholder="Altura (cm)" style="padding:12px; width:120px; border:1px solid #ddd; border-radius:8px;">
-        <input type="number" id="pes" placeholder="Peso (kg)" style="padding:12px; width:120px; border:1px solid #ddd; border-radius:8px;">
+        <input type="number" id="h" placeholder="Altura (cm)" style="padding:10px; width:100px; border-radius:8px; border:1px solid #ddd;">
+        <input type="number" id="w" placeholder="Peso (kg)" style="padding:10px; width:100px; border-radius:8px; border:1px solid #ddd;">
     </div>
 
-    <div>
+    <div class="step">
         <h3>2. Tipo de Silueta:</h3>
         <div class="body-type-container">
             <div class="body-option" onclick="selectBody(this, 'Ectomorfa')">
-                <img src="https://i.ibb.co/VvYfF39/ectomorph.png">
-                <p style="font-size:0.7rem; font-weight:bold;">ECTOMORFA</p>
+                <img src="https://i.ibb.co/VvYfF39/ectomorph.png" alt="Ectomorfa">
+                <p style="font-size:0.6rem; font-weight:bold;">ECTOMORFA</p>
             </div>
             <div class="body-option" onclick="selectBody(this, 'Mesomorfa')">
-                <img src="https://i.ibb.co/LkvmY3Y/mesomorph.png">
-                <p style="font-size:0.7rem; font-weight:bold;">MESOMORFA</p>
+                <img src="https://i.ibb.co/LkvmY3Y/mesomorph.png" alt="Mesomorfa">
+                <p style="font-size:0.6rem; font-weight:bold;">MESOMORFA</p>
             </div>
             <div class="body-option" onclick="selectBody(this, 'Endomorfa')">
-                <img src="https://i.ibb.co/X7WqS7B/endomorph.png">
-                <p style="font-size:0.7rem; font-weight:bold;">ENDOMORFA</p>
+                <img src="https://i.ibb.co/X7WqS7B/endomorph.png" alt="Endomorfa">
+                <p style="font-size:0.6rem; font-weight:bold;">ENDOMORFA</p>
             </div>
         </div>
     </div>
 
-    <div style="margin-bottom:30px;">
-        <h3>3. Foto Facial (Mapeo de IA):</h3>
-        <input type="file" accept="image/*" style="padding:10px;">
+    <div class="step">
+        <h3>3. Selfie (Mapeo Facial):</h3>
+        <input type="file" accept="image/*">
     </div>
 
-    <button class="btn btn-black" onclick="generar()">GENERAR AVATAR CON MI CARA</button>
+    <button id="gen-btn" class="btn btn-black" onclick="generar()">GENERAR AVATAR CON MI CARA</button>
 
     <div id="loading-screen">
         <div class="spinner"></div>
-        <p id="status"><b>Escaneando rasgos faciales y proporciones...</b></p>
-        <p style="font-size:0.8rem; color:#666;">Estamos adaptando el patrón del polo a tu fisonomía única.</p>
+        <p id="msg"><b>Mapeando fisonomía corporal y facial...</b></p>
     </div>
 </div>
 
@@ -104,17 +103,19 @@
     }
 
     function generar() {
-        const h = document.getElementById('alt').value;
-        if(!h || !cuerpo) { alert("Introduce tus datos para que la IA trabaje."); return; }
+        const height = document.getElementById('h').value;
+        if(!height || !cuerpo) { alert("Introduce tus datos primero."); return; }
 
+        document.getElementById('gen-btn').style.display = 'none';
         document.getElementById('loading-screen').style.display = 'block';
-        document.getElementById('status').innerHTML = `<b>Generando Modelo Humano (${cuerpo} - ${h}cm)...</b>`;
+        document.getElementById('msg').innerHTML = `<b>Generando Avatar Humano (${cuerpo} - ${height}cm)...</b>`;
 
+        // Simulación de 6 segundos
         setTimeout(() => {
             cerrarProbador();
             document.getElementById('main-photo').style.display = 'none';
             document.getElementById('ar-viewer').style.display = 'block';
-        }, 5000);
+        }, 6000);
     }
 </script>
 
