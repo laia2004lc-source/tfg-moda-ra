@@ -3,126 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MARESME DIGITAL | Boutique RA</title>
+    <title>MARESME DIGITAL | Probador IA</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #fff; color: #1a1a1a; }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid #f0f0f0; }
-        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: #fff; color: #1a1a1a; }
+        nav { display: flex; justify-content: space-between; padding: 20px 5%; border-bottom: 1px solid #eee; }
         .product-page { display: flex; flex-wrap: wrap; padding: 40px 5%; gap: 40px; }
-        .visual-container { flex: 1; min-width: 350px; position: relative; border-radius: 15px; overflow: hidden; background: #f9f9f9; height: 600px; }
+        .visual-container { flex: 1; min-width: 350px; height: 600px; background: #f9f9f9; border-radius: 15px; overflow: hidden; }
         .main-img { width: 100%; height: 100%; object-fit: cover; }
-        #ar-viewer { width: 100%; height: 100%; display: none; }
+        model-viewer { width: 100%; height: 100%; display: none; }
+
         .info-container { flex: 1; min-width: 300px; }
-        .tag { background: #d4af37; color: white; padding: 5px 10px; font-size: 0.7rem; border-radius: 4px; text-transform: uppercase; }
-        h1 { font-size: 2.5rem; margin: 15px 0; }
-        .price { font-size: 1.5rem; font-weight: bold; margin-bottom: 30px; }
-        .btn { width: 100%; padding: 18px; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 600; margin-bottom: 15px; }
+        .btn { width: 100%; padding: 18px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-bottom: 15px; border: none; }
         .btn-black { background: #1a1a1a; color: #fff; }
-        .btn-outline { background: #fff; border: 2px solid #1a1a1a; color: #1a1a1a; }
+        .btn-outline { background: #fff; border: 2px solid #1a1a1a; }
 
-        /* PROBADOR CON TUS SILUETAS */
-        .probador-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); z-index: 100; padding: 40px 20px; box-sizing: border-box; overflow-y: auto; text-align: center; }
+        /* EL PROBADOR PERSONALIZADO */
+        .probador-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; padding: 20px; overflow-y: auto; text-align: center; }
         .probador-overlay.active { display: block; }
-        .close-btn { position: absolute; top: 20px; right: 20px; font-size: 2rem; cursor: pointer; }
         
-        .step { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
-        .input-medidas { padding: 12px; border-radius: 8px; border: 1px solid #ddd; margin: 5px; width: 120px; }
+        .step { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0; }
+        .input-medidas { padding: 12px; border: 1px solid #ccc; border-radius: 8px; width: 100px; margin: 5px; }
         
-        .body-type-container { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
-        .body-option { flex: 1; max-width: 140px; border: 1px solid #ddd; border-radius: 12px; padding: 15px 5px; cursor: pointer; background: #fff; transition: 0.3s; }
-        .body-option:hover, .body-option.selected { border-color: #000; background: #f9f9f9; transform: translateY(-5px); }
-        .body-option img { width: 100%; height: auto; margin-bottom: 10px; max-height: 120px; object-fit: contain; }
-        .body-label { font-size: 0.75rem; font-weight: bold; display: block; text-transform: uppercase; }
+        .body-type-container { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .body-option { flex: 1; border: 1px solid #ddd; border-radius: 12px; padding: 10px; cursor: pointer; max-width: 110px; }
+        .body-option.selected { border: 2px solid #000; background: #f0f0f0; }
+        .body-option img { width: 100%; height: auto; }
 
-        #loading-screen { display: none; margin-top: 30px; }
-        .spinner { border: 4px solid rgba(0,0,0,0.1); width: 36px; height: 36px; border-radius: 50%; border-left-color: #1a1a1a; animation: spin 1s linear infinite; margin: 20px auto; }
+        #loading-screen { display: none; margin-top: 40px; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #1a1a1a; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<nav>
-    <div class="logo">MARESME DIGITAL</div>
-    <div style="font-size: 0.8rem;">LINEA EXECUTIVE</div>
-</nav>
+<nav><div style="font-weight:800;">MARESME DIGITAL</div></nav>
 
 <div class="product-page">
     <div class="visual-container">
         <img src="modelo_polo.jpg" id="main-photo" class="main-img" alt="Modelo Real">
-        <model-viewer id="ar-viewer" src="polo_3d.glb" ar camera-controls shadow-intensity="1"></model-viewer>
+        <model-viewer id="ar-viewer" src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb" ar camera-controls auto-rotate></model-viewer>
     </div>
 
     <div class="info-container">
-        <span class="tag">Línea Elegante</span>
-        <h1>Polo "Brisa Premium"</h1>
+        <h1>Polo Executive</h1>
         <p class="price">45,00 €</p>
-        <p>Prenda exclusiva diseñada para adaptarse a tu ritmo. Usa el probador para una experiencia personalizada.</p>
-        <button class="btn btn-black">AÑADIR A LA CESTA</button>
-        <button class="btn btn-outline" onclick="abrirProbador()">🤳 PROBAR CON MI AVATAR</button>
+        <button class="btn btn-black">COMPRAR AHORA</button>
+        <button class="btn btn-outline" onclick="abrirProbador()">🤳 CREAR MI AVATAR 3D (CON MI CARA)</button>
     </div>
 </div>
 
 <div id="probador" class="probador-overlay">
-    <span class="close-btn" onclick="cerrarProbador()">&times;</span>
-    <h2 style="margin-top:20px;">Probador Inteligente</h2>
+    <h2>Configuración de tu Avatar Personalizado</h2>
     
     <div class="step">
-        <h3>1. Tus medidas:</h3>
-        <input type="number" placeholder="Altura (cm)" class="input-medidas">
-        <input type="number" placeholder="Peso (kg)" class="input-medidas">
+        <h3>1. Tus medidas reales:</h3>
+        <input type="number" id="user-h" placeholder="Altura (cm)" class="input-medidas">
+        <input type="number" id="user-w" placeholder="Peso (kg)" class="input-medidas">
     </div>
 
     <div class="step">
-        <h3>2. Define tu silueta:</h3>
+        <h3>2. Tu tipo de cuerpo:</h3>
         <div class="body-type-container">
-            <div class="body-option" onclick="selectBody(this)">
-                <img src="https://i.ibb.co/VvYfF39/ectomorph.png" alt="Ectomorfa">
-                <span class="body-label">Ectomorfa</span>
-                <small style="font-size: 0.6rem; color: #888;">Esbelta / Recta</small>
+            <div class="body-option" onclick="selectBody(this, 'Ectomorfa')">
+                <img src="https://cdn-icons-png.flaticon.com/512/1000/1000997.png">
+                <p style="font-size:0.6rem;">ECTOMORFA</p>
             </div>
-            <div class="body-option" onclick="selectBody(this)">
-                <img src="https://i.ibb.co/LkvmY3Y/mesomorph.png" alt="Mesomorfa">
-                <span class="body-label">Mesomorfa</span>
-                <small style="font-size: 0.6rem; color: #888;">Reloj de arena</small>
+            <div class="body-option" onclick="selectBody(this, 'Mesomorfa')">
+                <img src="https://cdn-icons-png.flaticon.com/512/1000/1000994.png">
+                <p style="font-size:0.6rem;">MESOMORFA</p>
             </div>
-            <div class="body-option" onclick="selectBody(this)">
-                <img src="https://i.ibb.co/X7WqS7B/endomorph.png" alt="Endomorfa">
-                <span class="body-label">Endomorfa</span>
-                <small style="font-size: 0.6rem; color: #888;">Curvas / Robusta</small>
+            <div class="body-option" onclick="selectBody(this, 'Endomorfa')">
+                <img src="https://cdn-icons-png.flaticon.com/512/1001/1001000.png">
+                <p style="font-size:0.6rem;">ENDOMORFA</p>
             </div>
         </div>
     </div>
 
     <div class="step">
-        <h3>3. Tu Selfie (Personaliza la cara):</h3>
-        <input type="file" accept="image/*">
+        <h3>3. Sube tu selfie (Mapeo Facial):</h3>
+        <input type="file" id="user-photo" accept="image/*">
     </div>
 
-    <button id="gen-btn" class="btn btn-black" style="margin-top:20px; width:auto; padding: 15px 50px;" onclick="generar()">GENERAR MI AVATAR</button>
+    <button id="gen-btn" class="btn btn-black" onclick="generar()">GENERAR AVATAR CON MI CARA</button>
 
     <div id="loading-screen">
         <div class="spinner"></div>
-        <p><b>Creando tu modelo 3D personalizado...</b></p>
-        <p style="font-size:0.8rem; color:#666;">Estamos calculando tu volumen corporal y mapeando tu rostro. Esto suele tardar unos 45 segundos en el servidor real.</p>
+        <p id="status-msg"><b>Procesando...</b></p>
+        <p style="font-size:0.8rem; color:#666;">Mapeando facciones sobre el modelo 3D según tus medidas corporales.</p>
     </div>
 </div>
 
 <script>
+    let selectedBody = "";
     function abrirProbador() { document.getElementById('probador').classList.add('active'); }
     function cerrarProbador() { document.getElementById('probador').classList.remove('active'); }
-    function selectBody(el) {
+    function selectBody(el, type) {
         document.querySelectorAll('.body-option').forEach(b => b.classList.remove('selected'));
         el.classList.add('selected');
+        selectedBody = type;
     }
+
     function generar() {
+        const h = document.getElementById('user-h').value;
+        if(!h || !selectedBody) { alert("Pon tus medidas y elige cuerpo"); return; }
+
         document.getElementById('gen-btn').style.display = 'none';
         document.getElementById('loading-screen').style.display = 'block';
+        document.getElementById('status-msg').innerHTML = `<b>Generando Avatar ${selectedBody} (${h}cm) con mapeo facial...</b>`;
+
         setTimeout(() => {
             cerrarProbador();
             document.getElementById('main-photo').style.display = 'none';
             document.getElementById('ar-viewer').style.display = 'block';
-        }, 6000); 
+        }, 5000);
     }
 </script>
 
