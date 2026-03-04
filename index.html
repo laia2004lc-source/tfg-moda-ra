@@ -1,74 +1,62 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MARESME DIGITAL | Boutique RA</title>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #ffffff; color: #1a1a1a; }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid #f0f0f0; }
-        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; }
-        .hero { padding: 40px 5%; text-align: center; background: #fdfdfd; }
-        
-        /* Contenedor de las dos líneas */
-        .collection-container { display: flex; flex-wrap: wrap; gap: 40px; padding: 40px 5%; justify-content: center; }
-        .product-card { flex: 1; min-width: 350px; max-width: 500px; border: 1px solid #eee; border-radius: 15px; overflow: hidden; padding: 20px; }
-        
-        /* Visor 3D */
-        model-viewer { width: 100%; height: 400px; background: #f9f9f9; border-radius: 10px; }
-        
-        /* Etiquetas de línea */
-        .tag-z { background: #000; color: #fff; padding: 5px 10px; font-size: 0.7rem; border-radius: 5px; }
-        .tag-adult { background: #d4af37; color: #fff; padding: 5px 10px; font-size: 0.7rem; border-radius: 5px; }
-        
-        .price { font-size: 1.2rem; font-weight: bold; margin: 10px 0; }
-        .btn { width: 100%; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; }
-        .btn-ar { background: #fff; border: 1px solid #000; }
-        .btn-buy { background: #1a1a1a; color: #fff; }
-    </style>
-</head>
-<body>
-
-<nav>
-    <div class="logo">MARESME DIGITAL</div>
-    <div>Línea Gen Z | Línea Executive</div>
-</nav>
-
-<section class="hero">
-    <h1>Colección Dual Maresme</h1>
-    <p>Tecnología RA aplicada a dos estilos de vida en Premià de Dalt.</p>
-</section>
-
-<div class="collection-container">
+<style>
+    .body-type-container {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+    }
+    .body-option {
+        flex: 1;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 15px 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: #fff;
+    }
+    .body-option:hover {
+        border-color: #000;
+        transform: translateY(-3px);
+    }
+    .body-option img {
+        width: 100%;
+        max-width: 60px; /* Tamaño ideal para móvil */
+        height: auto;
+        margin-bottom: 10px;
+        opacity: 0.7;
+    }
+    .body-option.selected {
+        border-color: #1a1a1a;
+        background: #f0f0f0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .body-option.selected img { opacity: 1; }
     
-    <div class="product-card">
-        <span class="tag-z">LINEA Z (Streetwear)</span>
-        <h2>T-Shirt "Premià Urban"</h2>
-        <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" ar camera-controls auto-rotate shadow-intensity="1">
-            <button slot="ar-button" style="position:absolute; bottom:10px; left:50%; transform:translateX(-50%);">🤳 PROBAR AHORA</button>
-        </model-viewer>
-        <p class="price">24,95 €</p>
-        <p>Corte oversize, algodón pesado. Ideal para un look urbano.</p>
-        <button class="btn btn-buy">AÑADIR AL CARRITO</button>
-    </div>
+    .body-label { font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 2px; }
+    .body-desc { font-size: 0.6rem; color: #888; line-height: 1; }
+</style>
 
-    <div class="product-card">
-        <span class="tag-adult">LINEA EXECUTIVE</span>
-        <h2>Polo "Brisa Premium"</h2>
-        <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" ar camera-controls auto-rotate shadow-intensity="1">
-            <button slot="ar-button" style="position:absolute; bottom:10px; left:50%; transform:translateX(-50%);">🤳 PROBAR AHORA</button>
-        </model-viewer>
-        <p class="price">45,00 €</p>
-        <p>Corte clásico, tejido transpirable. Elegancia para el día a día.</p>
-        <button class="btn btn-buy">AÑADIR AL CARRITO</button>
-    </div>
+<div class="input-group">
+    <label style="color:#333; font-size: 0.9rem;">2. Define tu silueta:</label>
+    <div class="body-type-container">
+        
+        <div class="body-option" onclick="selectBody(this, 'ectomorfa')">
+            <img src="https://cdn-icons-png.flaticon.com/512/6064/6064951.png" alt="Ectomorfa">
+            <span class="body-label">Ectomorfa</span>
+            <span class="body-desc">Esbelta / Recta</span>
+        </div>
 
+        <div class="body-option" onclick="selectBody(this, 'mesomorfa')">
+            <img src="https://cdn-icons-png.flaticon.com/512/6064/6064942.png" alt="Mesomorfa">
+            <span class="body-label">Mesomorfa</span>
+            <span class="body-desc">Reloj de arena</span>
+        </div>
+
+        <div class="body-option" onclick="selectBody(this, 'endomorfa')">
+            <img src="https://cdn-icons-png.flaticon.com/512/6065/6065003.png" alt="Endomorfa">
+            <span class="body-label">Endomorfa</span>
+            <span class="body-desc">Curvas / Robusta</span>
+        </div>
+
+    </div>
 </div>
-
-<footer>
-    <p style="text-align:center; padding: 40px; color: #999; border-top: 1px solid #eee;">© 2026 Maresme Digital - Premià de Dalt</p>
-</footer>
-
-</body>
-</html>
