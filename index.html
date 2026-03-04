@@ -21,16 +21,20 @@
         .btn-black { background: #1a1a1a; color: #fff; }
         .btn-outline { background: #fff; border: 2px solid #1a1a1a; color: #1a1a1a; }
 
-        /* ESTILO DE TUS NUEVAS SILUETAS */
+        /* PROBADOR CON TUS SILUETAS */
         .probador-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); z-index: 100; padding: 40px 20px; box-sizing: border-box; overflow-y: auto; text-align: center; }
         .probador-overlay.active { display: block; }
         .close-btn { position: absolute; top: 20px; right: 20px; font-size: 2rem; cursor: pointer; }
-        .body-type-container { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
-        .body-option { flex: 1; max-width: 150px; border: 1px solid #ddd; border-radius: 12px; padding: 15px; cursor: pointer; background: #fff; transition: 0.3s; }
-        .body-option:hover, .body-option.selected { border-color: #000; background: #f9f9f9; transform: translateY(-5px); }
-        .body-option img { width: 100%; height: auto; margin-bottom: 10px; }
-        .body-label { font-size: 0.8rem; font-weight: bold; display: block; }
         
+        .step { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .input-medidas { padding: 12px; border-radius: 8px; border: 1px solid #ddd; margin: 5px; width: 120px; }
+        
+        .body-type-container { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+        .body-option { flex: 1; max-width: 140px; border: 1px solid #ddd; border-radius: 12px; padding: 15px 5px; cursor: pointer; background: #fff; transition: 0.3s; }
+        .body-option:hover, .body-option.selected { border-color: #000; background: #f9f9f9; transform: translateY(-5px); }
+        .body-option img { width: 100%; height: auto; margin-bottom: 10px; max-height: 120px; object-fit: contain; }
+        .body-label { font-size: 0.75rem; font-weight: bold; display: block; text-transform: uppercase; }
+
         #loading-screen { display: none; margin-top: 30px; }
         .spinner { border: 4px solid rgba(0,0,0,0.1); width: 36px; height: 36px; border-radius: 50%; border-left-color: #1a1a1a; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -53,7 +57,7 @@
         <span class="tag">Línea Elegante</span>
         <h1>Polo "Brisa Premium"</h1>
         <p class="price">45,00 €</p>
-        <p>Corte femenino y tejido transpirable. Prueba nuestro probador inteligente para ver cómo se adapta a tu fisonomía.</p>
+        <p>Prenda exclusiva diseñada para adaptarse a tu ritmo. Usa el probador para una experiencia personalizada.</p>
         <button class="btn btn-black">AÑADIR A LA CESTA</button>
         <button class="btn btn-outline" onclick="abrirProbador()">🤳 PROBAR CON MI AVATAR</button>
     </div>
@@ -61,37 +65,46 @@
 
 <div id="probador" class="probador-overlay">
     <span class="close-btn" onclick="cerrarProbador()">&times;</span>
-    <h2>Probador Virtual: Define tu Silueta</h2>
+    <h2 style="margin-top:20px;">Probador Inteligente</h2>
     
-    <div class="body-type-container">
-        <div class="body-option" onclick="selectBody(this)">
-            <img src="https://i.ibb.co/VvYfF39/ectomorph.png" alt="Ectomorfa">
-            <span class="body-label">ECTOMORFA</span>
-            <small>Esbelta / Recta</small>
-        </div>
-        <div class="body-option" onclick="selectBody(this)">
-            <img src="https://i.ibb.co/LkvmY3Y/mesomorph.png" alt="Mesomorfa">
-            <span class="body-label">MESOMORFA</span>
-            <small>Reloj de arena</small>
-        </div>
-        <div class="body-option" onclick="selectBody(this)">
-            <img src="https://i.ibb.co/X7WqS7B/endomorph.png" alt="Endomorfa">
-            <span class="body-label">ENDOMORFA</span>
-            <small>Curvas / Robusta</small>
+    <div class="step">
+        <h3>1. Tus medidas:</h3>
+        <input type="number" placeholder="Altura (cm)" class="input-medidas">
+        <input type="number" placeholder="Peso (kg)" class="input-medidas">
+    </div>
+
+    <div class="step">
+        <h3>2. Define tu silueta:</h3>
+        <div class="body-type-container">
+            <div class="body-option" onclick="selectBody(this)">
+                <img src="https://i.ibb.co/VvYfF39/ectomorph.png" alt="Ectomorfa">
+                <span class="body-label">Ectomorfa</span>
+                <small style="font-size: 0.6rem; color: #888;">Esbelta / Recta</small>
+            </div>
+            <div class="body-option" onclick="selectBody(this)">
+                <img src="https://i.ibb.co/LkvmY3Y/mesomorph.png" alt="Mesomorfa">
+                <span class="body-label">Mesomorfa</span>
+                <small style="font-size: 0.6rem; color: #888;">Reloj de arena</small>
+            </div>
+            <div class="body-option" onclick="selectBody(this)">
+                <img src="https://i.ibb.co/X7WqS7B/endomorph.png" alt="Endomorfa">
+                <span class="body-label">Endomorfa</span>
+                <small style="font-size: 0.6rem; color: #888;">Curvas / Robusta</small>
+            </div>
         </div>
     </div>
 
-    <div style="margin-top:40px;">
-        <h3>Sube tu selfie para la cara:</h3>
+    <div class="step">
+        <h3>3. Tu Selfie (Personaliza la cara):</h3>
         <input type="file" accept="image/*">
     </div>
 
-    <button id="gen-btn" class="btn btn-black" style="margin-top:30px; width:auto; padding: 15px 40px;" onclick="generar()">GENERAR MI AVATAR</button>
+    <button id="gen-btn" class="btn btn-black" style="margin-top:20px; width:auto; padding: 15px 50px;" onclick="generar()">GENERAR MI AVATAR</button>
 
     <div id="loading-screen">
         <div class="spinner"></div>
-        <p><b>Procesando tu fisonomía...</b></p>
-        <p style="font-size:0.8rem; color:#666;">Tiempo estimado: 45 segundos. Estamos mapeando tu selfie sobre la silueta seleccionada.</p>
+        <p><b>Creando tu modelo 3D personalizado...</b></p>
+        <p style="font-size:0.8rem; color:#666;">Estamos calculando tu volumen corporal y mapeando tu rostro. Esto suele tardar unos 45 segundos en el servidor real.</p>
     </div>
 </div>
 
@@ -109,7 +122,7 @@
             cerrarProbador();
             document.getElementById('main-photo').style.display = 'none';
             document.getElementById('ar-viewer').style.display = 'block';
-        }, 8000); // Simulamos 8 segundos para que veas el proceso
+        }, 6000); 
     }
 </script>
 
